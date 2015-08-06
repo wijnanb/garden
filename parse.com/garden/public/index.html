@@ -27,7 +27,7 @@
       .ct-series-a .ct-point {
         stroke: #4488CC;
         stroke-linecap: round;
-        stroke-width: 3px;
+        stroke-width: 5px;
       }
 
       .ct-series-a .ct-line {
@@ -42,7 +42,7 @@
       .ct-series-b .ct-point {
         stroke: #CC4444;
         stroke-linecap: round;
-        stroke-width: 3px;
+        stroke-width: 5px;
       }
 
       .ct-series-b .ct-line {
@@ -150,9 +150,16 @@
 
         $chart.on('mouseenter', '.ct-point', function() {
           var $point = $(this),
-            value = $point.attr('ct:value'),
+            value = Number($point.attr('ct:value')).toFixed(1),
             seriesName = $point.parent().attr('ct:series-name');
-          $toolTip.html(seriesName + '<br>' + value).show();
+
+            if (seriesName == "Temperature") {
+              $toolTip.html(seriesName + '<br>' + value + " &deg;C").show();
+            } else {
+              $toolTip.html(seriesName + '<br>' + value + "%").show();
+            }
+
+          
         });
 
         $chart.on('mouseleave', '.ct-point', function() {
